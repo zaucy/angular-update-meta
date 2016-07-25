@@ -96,7 +96,7 @@ angular.module('updateMeta', []);
    *
    * @constructor
    */
-  function UpdateTitleDirective($log) {
+  function UpdateTitleDirective($log, $rootScope) {
 
     return {
       restrict: 'E',
@@ -110,6 +110,7 @@ angular.module('updateMeta', []);
         scope.$watch('title', function (newValue, oldValue) {
           if (typeof newValue !== 'undefined') {
             if(document){
+              $rootScope.$broadcast("update-title", newValue, document.title);
               document.title = newValue;
             }
           }
@@ -119,7 +120,7 @@ angular.module('updateMeta', []);
   }
 
   // Inject dependencies
-  UpdateTitleDirective.$inject = ['$log'];
+  UpdateTitleDirective.$inject = ['$log', '$rootScope'];
 
   // Export
   angular
